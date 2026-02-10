@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileText, Database, BarChart3, Settings, Code, Search } from 'lucide-react'
+import { FileText, Database, BarChart3, Settings, Code, Search, SlidersHorizontal } from 'lucide-react'
 import './Home.css'
 
 const tools = [
@@ -11,6 +11,16 @@ const tools = [
     color: '#e5322d',
     bgColor: '#fef2f2',
     path: '/products-parser',
+    ready: true,
+  },
+  {
+    id: 'prompt-configurator',
+    name: 'Prompt Configurator',
+    description: 'Configure order cancellation prompt templates with real-time preview and one-click copy.',
+    icon: SlidersHorizontal,
+    color: '#9333ea',
+    bgColor: '#faf5ff',
+    path: '/prompt-configurator',
     ready: true,
   },
   {
@@ -38,8 +48,8 @@ const tools = [
     name: 'Config Builder',
     description: 'Generate configuration files for product feeds, integrations, and APIs.',
     icon: Settings,
-    color: '#9333ea',
-    bgColor: '#faf5ff',
+    color: '#64748b',
+    bgColor: '#f8fafc',
     path: '#',
     ready: false,
   },
