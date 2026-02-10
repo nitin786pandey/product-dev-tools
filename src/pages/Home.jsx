@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileText, MessageSquare, Database, BarChart3, Settings, Code, Search } from 'lucide-react'
+import { FileText, MessageSquare, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal } from 'lucide-react'
 import './Home.css'
 
 const tools = [
@@ -75,6 +75,19 @@ const tools = [
   },
 ]
 
+const miscTools = [
+  {
+    id: 'prompt-configurator',
+    name: 'Prompt Configurator',
+    description: 'Configure order cancellation prompt templates (temporary UI). Real-time preview and one-click copy.',
+    icon: SlidersHorizontal,
+    color: '#9333ea',
+    bgColor: '#faf5ff',
+    path: '/prompt-configurator',
+    ready: true,
+  },
+]
+
 export default function Home() {
   return (
     <div className="home">
@@ -103,6 +116,42 @@ export default function Home() {
                 </div>
                 <h3 className="tool-name">{tool.name}</h3>
                 <p className="tool-desc">{tool.description}</p>
+                {!tool.ready && <span className="tool-badge">Coming Soon</span>}
+              </CardWrapper>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="misc-section">
+        <div className="misc-header">
+          <div className="misc-header-icon">
+            <MoreHorizontal size={22} />
+          </div>
+          <div>
+            <h2 className="misc-title">Miscellaneous</h2>
+            <p className="misc-desc">Experimental and temporary tools</p>
+          </div>
+        </div>
+        <div className="misc-grid">
+          {miscTools.map((tool) => {
+            const Icon = tool.icon
+            const CardWrapper = tool.ready ? Link : 'div'
+            const cardProps = tool.ready ? { to: tool.path } : {}
+
+            return (
+              <CardWrapper
+                key={tool.id}
+                className={`misc-card ${!tool.ready ? 'misc-card-disabled' : ''}`}
+                {...cardProps}
+              >
+                <div className="misc-card-icon" style={{ background: tool.bgColor, color: tool.color }}>
+                  <Icon size={22} strokeWidth={1.8} />
+                </div>
+                <div className="misc-card-body">
+                  <h3 className="misc-card-name">{tool.name}</h3>
+                  <p className="misc-card-desc">{tool.description}</p>
+                </div>
                 {!tool.ready && <span className="tool-badge">Coming Soon</span>}
               </CardWrapper>
             )

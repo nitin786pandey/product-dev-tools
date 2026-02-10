@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import ProductsParser from './pages/ProductsParser'
 import PromptsParser from './pages/PromptsParser'
+import PromptConfigurator from './pages/PromptConfigurator'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products-parser" element={<ProductsParser />} />
         <Route path="/prompts-parser" element={<PromptsParser />} />
+        <Route path="/prompt-configurator" element={<PromptConfigurator />} />
       </Routes>
     </Layout>
   )
