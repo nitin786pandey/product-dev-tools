@@ -4,7 +4,7 @@ import './Layout.css'
 
 const toolNames = {
   '/products-parser': 'Products Data Parser',
-  '/prompt-configurator': 'Prompt Configurator',
+  '/prompts-parser': 'Prompts Parser',
 }
 
 export default function Layout({ children }) {
