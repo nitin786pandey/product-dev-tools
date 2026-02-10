@@ -44,24 +44,41 @@ function findClosingTag(text, openStart, openTagName) {
 }
 
 /**
- * Extract all direct child XML elements from content.
- * Returns array of { tagName, start, end, innerContent }.
+ * Extract only direct child XML elements: tags that appear at the top level of
+ * `content`, not inside another tag. This prevents nested tags (e.g. <processes>
+ * inside <custom_prompt>) from being returned as siblings at the root level.
+ * Returns array of { tagName, openStart, closeIdx, innerContent }.
  */
-function extractChildTags(content) {
+function extractDirectChildTags(content) {
   const children = [];
-  TAG_REGEX.lastIndex = 0;
-  let match;
+  let pos = 0;
 
-  while ((match = TAG_REGEX.exec(content)) !== null) {
+  while (pos < content.length) {
+    const nextOpen = content.indexOf('<', pos);
+    if (nextOpen === -1) break;
+
+    TAG_REGEX.lastIndex = 0;
+    const match = TAG_REGEX.exec(content.slice(nextOpen));
+    if (!match) {
+      pos = nextOpen + 1;
+      continue;
+    }
+
     const tagName = match[1];
-    const openStart = match.index;
+    const openStart = nextOpen;
     const closeIdx = findClosingTag(content, openStart, tagName);
-    if (closeIdx === -1) continue;
+    if (closeIdx === -1) {
+      pos = nextOpen + 1;
+      continue;
+    }
+
+    const closeEnd = closeIdx + tagName.length + 3;
     const innerContent = content.slice(openStart + tagName.length + 2, closeIdx);
-    children.push({ tagName, openStart, closeIdx, innerContent, fullLength: closeIdx + tagName.length + 3 - openStart });
+    children.push({ tagName, openStart, closeIdx, innerContent });
+    pos = closeEnd;
   }
 
-  return children.sort((a, b) => a.openStart - b.openStart);
+  return children;
 }
 
 /**
@@ -86,10 +103,10 @@ function textAfterLastTag(content, lastChildCloseEnd) {
  */
 function parseLevel(text) {
   const sections = [];
-  const children = extractChildTags(text);
+  const children = extractDirectChildTags(text);
 
   for (const ch of children) {
-    const firstNested = extractChildTags(ch.innerContent);
+    const firstNested = extractDirectChildTags(ch.innerContent);
     const firstChildStart = firstNested.length > 0 ? firstNested[0].openStart : -1;
     const lastChildCloseEnd = firstNested.length > 0
       ? firstNested[firstNested.length - 1].closeIdx + firstNested[firstNested.length - 1].tagName.length + 3
