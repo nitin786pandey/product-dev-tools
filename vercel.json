@@ -1,5 +1,8 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+    { "source": "/((?!api|src|assets|@|node_modules|vite).*)", "destination": "/index.html" }
+  ],
+  "functions": {
+    "api/overseer/analyze.js": {"maxDuration": 30}
+  }
 }

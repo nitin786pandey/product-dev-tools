@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import ProductsParser from './pages/ProductsParser'
 import PromptsParser from './pages/PromptsParser'
 import PromptConfigurator from './pages/PromptConfigurator'
+import WritingOverseer from './pages/WritingOverseer'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/products-parser" element={<ProductsParser />} />
         <Route path="/prompts-parser" element={<PromptsParser />} />
+        <Route path="/writing-overseer" element={<WritingOverseer />} />
         <Route path="/prompt-configurator" element={<PromptConfigurator />} />
       </Routes>
     </Layout>

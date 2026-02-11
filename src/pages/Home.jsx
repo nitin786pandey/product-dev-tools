@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileText, MessageSquare, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal } from 'lucide-react'
+import { FileText, MessageSquare, PenLine, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal } from 'lucide-react'
 import './Home.css'
 
 const tools = [
@@ -21,6 +21,16 @@ const tools = [
     color: '#7c3aed',
     bgColor: '#f5f3ff',
     path: '/prompts-parser',
+    ready: true,
+  },
+  {
+    id: 'writing-overseer',
+    name: 'Writing Overseer',
+    description: 'LLM-powered writing coach. Get inline feedback on clarity, verbosity, structure, and tone. Learn to write better over time.',
+    icon: PenLine,
+    color: '#0d9488',
+    bgColor: '#ccfbf1',
+    path: '/writing-overseer',
     ready: true,
   },
   {

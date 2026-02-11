@@ -5,6 +5,7 @@ import './Layout.css'
 const toolNames = {
   '/products-parser': 'Products Data Parser',
   '/prompts-parser': 'Prompts Parser',
+  '/writing-overseer': 'Writing Overseer',
   '/prompt-configurator': 'Prompt Configurator',
 }
 
