@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react'
 import {
   FileJson, Play, Trash2, Copy, CheckCircle2, XCircle,
-  Store, UserMinus, UserPlus, FileCode2, Calendar,
+  Store, UserMinus, UserPlus, FileCode2, Calendar, ChevronDown, ChevronUp,
 } from 'lucide-react'
 import { parseStoreCount } from '../utils/parseStoreCount'
 import { buildStoreCountQueryString } from '../utils/buildStoreCountQuery'
@@ -19,6 +19,54 @@ function getYearOptions() {
   return [current - 2, current - 1, current, current + 1]
 }
 
+function StoreCountCard({
+  type,
+  label,
+  count,
+  storeIds,
+  icon,
+  expanded,
+  onToggle,
+  onCopyIds,
+  idsCopied,
+}) {
+  return (
+    <div className={`store-count-card store-count-card-${type} ${expanded ? 'store-count-card-expanded' : ''}`}>
+      <button
+        type="button"
+        className="store-count-card-head"
+        onClick={onToggle}
+        aria-expanded={expanded}
+        aria-label={`${label}: ${count} stores. Click to ${expanded ? 'collapse' : 'show'} store IDs`}
+      >
+        <div className="store-count-card-icon">{icon}</div>
+        <span className="store-count-card-label">{label}</span>
+        <span className="store-count-card-value">{count}</span>
+        {expanded ? <ChevronUp size={18} className="store-count-card-chevron" /> : <ChevronDown size={18} className="store-count-card-chevron" />}
+      </button>
+      {expanded && (
+        <div className="store-count-card-body">
+          <div className="store-count-id-list-wrap">
+            <pre className="store-count-id-list">
+              {storeIds.length ? storeIds.map((id) => String(id).trim()).join('\n') : '—'}
+            </pre>
+          </div>
+          <button
+            type="button"
+            className="store-count-copy-btn store-count-copy-ids-btn"
+            onClick={(e) => { e.stopPropagation(); onCopyIds() }}
+            disabled={storeIds.length === 0}
+            title="Copy all store IDs (one per line)"
+          >
+            {idsCopied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
+            {idsCopied ? 'Copied' : 'Copy all IDs'}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function FindingStoreCount() {
   const now = new Date()
   const [queryMonth, setQueryMonth] = useState(now.getMonth() + 1) // 1-based
@@ -28,6 +76,8 @@ export default function FindingStoreCount() {
   const [parsed, setParsed] = useState(false)
   const [copied, setCopied] = useState(false)
   const [queryCopied, setQueryCopied] = useState(false)
+  const [expandedCard, setExpandedCard] = useState(null) // 'active' | 'churned' | 'new' | null
+  const [idsCopied, setIdsCopied] = useState(null) // which list copy was clicked
 
   const queryString = useMemo(
     () => buildStoreCountQueryString({ year: queryYear, month: queryMonth }),
@@ -46,6 +96,22 @@ export default function FindingStoreCount() {
     setResult(null)
     setParsed(false)
     setCopied(false)
+    setExpandedCard(null)
+    setIdsCopied(null)
+  }
+
+  const idsToText = (ids) => (Array.isArray(ids) ? ids.map((id) => String(id).trim()).filter(Boolean).join('\n') : '')
+
+  const copyStoreIds = (ids, key) => {
+    const text = idsToText(ids)
+    if (!text) return
+    navigator.clipboard.writeText(text)
+    setIdsCopied(key)
+    setTimeout(() => setIdsCopied(null), 2000)
+  }
+
+  const toggleCard = (key) => {
+    setExpandedCard((prev) => (prev === key ? null : key))
   }
 
   const formatOutput = () => {
@@ -178,27 +244,39 @@ export default function FindingStoreCount() {
           ) : (
             <>
               <div className="store-count-cards">
-                <div className="store-count-card store-count-card-active">
-                  <div className="store-count-card-icon">
-                    <Store size={20} />
-                  </div>
-                  <span className="store-count-card-label">Active Stores</span>
-                  <span className="store-count-card-value">{result?.activeCount ?? 0}</span>
-                </div>
-                <div className="store-count-card store-count-card-churned">
-                  <div className="store-count-card-icon">
-                    <UserMinus size={20} />
-                  </div>
-                  <span className="store-count-card-label">Churned Stores</span>
-                  <span className="store-count-card-value">{result?.churnedCount ?? 0}</span>
-                </div>
-                <div className="store-count-card store-count-card-new">
-                  <div className="store-count-card-icon">
-                    <UserPlus size={20} />
-                  </div>
-                  <span className="store-count-card-label">New Stores</span>
-                  <span className="store-count-card-value">{result?.newCount ?? 0}</span>
-                </div>
+                <StoreCountCard
+                  type="active"
+                  label="Active Stores"
+                  count={result?.activeCount ?? 0}
+                  storeIds={result?.activeStoreIds ?? []}
+                  icon={<Store size={20} />}
+                  expanded={expandedCard === 'active'}
+                  onToggle={() => toggleCard('active')}
+                  onCopyIds={() => copyStoreIds(result?.activeStoreIds ?? [], 'active')}
+                  idsCopied={idsCopied === 'active'}
+                />
+                <StoreCountCard
+                  type="churned"
+                  label="Churned Stores"
+                  count={result?.churnedCount ?? 0}
+                  storeIds={result?.churnedStoreIds ?? []}
+                  icon={<UserMinus size={20} />}
+                  expanded={expandedCard === 'churned'}
+                  onToggle={() => toggleCard('churned')}
+                  onCopyIds={() => copyStoreIds(result?.churnedStoreIds ?? [], 'churned')}
+                  idsCopied={idsCopied === 'churned'}
+                />
+                <StoreCountCard
+                  type="new"
+                  label="New Stores"
+                  count={result?.newCount ?? 0}
+                  storeIds={result?.newStoreIds ?? []}
+                  icon={<UserPlus size={20} />}
+                  expanded={expandedCard === 'new'}
+                  onToggle={() => toggleCard('new')}
+                  onCopyIds={() => copyStoreIds(result?.newStoreIds ?? [], 'new')}
+                  idsCopied={idsCopied === 'new'}
+                />
               </div>
 
               <div className="store-count-output-row">

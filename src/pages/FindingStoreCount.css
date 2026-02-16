@@ -316,15 +316,85 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: box-shadow var(--transition), transform var(--transition);
+  transition: box-shadow var(--transition);
 }
 
 .store-count-card:hover {
   box-shadow: var(--shadow-md);
+}
+
+.store-count-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  border-radius: var(--radius-lg);
+  transition: background var(--transition);
+}
+
+.store-count-card-head:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.store-count-card-head:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.store-count-card-chevron {
+  margin-left: auto;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.store-count-card-expanded .store-count-card-chevron {
+  color: var(--text-secondary);
+}
+
+.store-count-card-body {
+  padding: 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+  margin: 0 20px 20px;
+}
+
+.store-count-id-list-wrap {
+  max-height: 280px;
+  overflow: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.store-count-id-list {
+  margin: 0;
+  padding: 12px 14px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre;
+}
+
+.store-count-copy-ids-btn {
+  align-self: flex-start;
+}
+
+.store-count-copy-ids-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .store-count-card-icon {

@@ -32,17 +32,30 @@ export function parseStoreCount(elasticJson) {
   const currentIds = new Set(current.map((b) => b.key))
   const previousIds = new Set(previous.map((b) => b.key))
 
-  let activeCount = 0
+  const activeStoreIds = []
+  const churnedStoreIds = []
+  const newStoreIds = []
+
   currentIds.forEach((id) => {
-    if (previousIds.has(id)) activeCount++
+    if (previousIds.has(id)) {
+      activeStoreIds.push(id)
+    } else {
+      newStoreIds.push(id)
+    }
   })
-  const churnedCount = previousIds.size - activeCount
-  const newCount = currentIds.size - activeCount
+  previousIds.forEach((id) => {
+    if (!currentIds.has(id)) {
+      churnedStoreIds.push(id)
+    }
+  })
 
   return {
-    activeCount,
-    churnedCount,
-    newCount,
+    activeCount: activeStoreIds.length,
+    churnedCount: churnedStoreIds.length,
+    newCount: newStoreIds.length,
+    activeStoreIds,
+    churnedStoreIds,
+    newStoreIds,
     error: null,
   }
 }
