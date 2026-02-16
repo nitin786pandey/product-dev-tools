@@ -78,6 +78,7 @@ export default function FindingStoreCount() {
   const [queryCopied, setQueryCopied] = useState(false)
   const [expandedCard, setExpandedCard] = useState(null) // 'active' | 'churned' | 'new' | null
   const [idsCopied, setIdsCopied] = useState(null) // which list copy was clicked
+  const [queryTemplatesOpen, setQueryTemplatesOpen] = useState(true)
 
   const queryString = useMemo(
     () => buildStoreCountQueryString({ year: queryYear, month: queryMonth }),
@@ -136,20 +137,29 @@ export default function FindingStoreCount() {
 
   return (
     <div className="store-count-page">
-      {/* Query Templates */}
-      <div className="query-templates-section">
-        <div className="section-header">
-          <div className="section-icon query-templates-icon">
-            <FileCode2 size={22} />
+      {/* Query Templates (collapsible) */}
+      <div className={`query-templates-section ${queryTemplatesOpen ? 'query-templates-open' : ''}`}>
+        <button
+          type="button"
+          className="query-templates-toggle"
+          onClick={() => setQueryTemplatesOpen((prev) => !prev)}
+          aria-expanded={queryTemplatesOpen}
+        >
+          <div className="section-header">
+            <div className="section-icon query-templates-icon">
+              <FileCode2 size={22} />
+            </div>
+            <div className="section-header-text">
+              <h2 className="section-title">Query Templates</h2>
+              <p className="section-desc">
+                Build the Elasticsearch query, then run it and paste the response below to get store counts.
+              </p>
+            </div>
+            {queryTemplatesOpen ? <ChevronUp size={20} className="query-templates-chevron" /> : <ChevronDown size={20} className="query-templates-chevron" />}
           </div>
-          <div>
-            <h2 className="section-title">Query Templates</h2>
-            <p className="section-desc">
-              Build the Elasticsearch query, then run it and paste the response below to get store counts.
-            </p>
-          </div>
-        </div>
+        </button>
 
+        {queryTemplatesOpen && (
         <div className="query-template-card">
           <div className="query-template-header">
             <span className="query-template-name">Store count (Active / Churned / New)</span>
@@ -193,6 +203,7 @@ export default function FindingStoreCount() {
             </button>
           </div>
         </div>
+        )}
       </div>
 
       {/* Parse response */}
