@@ -9,6 +9,133 @@
   color: #2563eb;
 }
 
+/* ===== Query Templates ===== */
+.query-templates-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.query-templates-icon {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.query-template-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.query-template-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.query-template-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.query-template-controls {
+  margin-left: auto;
+}
+
+.month-year-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.month-year-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.month-year-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.month-select,
+.year-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.month-select {
+  min-width: 130px;
+}
+
+.year-select {
+  min-width: 80px;
+}
+
+.query-output-wrap {
+  position: relative;
+  padding: 16px 20px;
+}
+
+.query-output-pre {
+  margin: 0;
+  padding: 16px 120px 16px 16px;
+  background: #1e1e2e;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #e4e4e7;
+  white-space: pre;
+}
+
+.query-output-pre code {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.query-output-wrap .query-copy-btn {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: var(--surface) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 640px) {
+  .query-template-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .query-template-controls {
+    margin-left: 0;
+  }
+  .query-output-pre {
+    padding-right: 16px;
+  }
+  .query-output-wrap .query-copy-btn {
+    position: static;
+    margin-top: 12px;
+    width: 100%;
+  }
+}
+
 /* Reuse parser layout tokens */
 .store-count-page .input-section {
   background: var(--surface);
