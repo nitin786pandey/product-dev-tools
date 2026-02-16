@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileText, MessageSquare, PenLine, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal } from 'lucide-react'
+import { FileText, MessageSquare, PenLine, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal, Store } from 'lucide-react'
 import './Home.css'
 
 const tools = [
@@ -21,6 +21,16 @@ const tools = [
     color: '#7c3aed',
     bgColor: '#f5f3ff',
     path: '/prompts-parser',
+    ready: true,
+  },
+  {
+    id: 'finding-store-count',
+    name: 'Finding Store Count',
+    description: 'Paste Elasticsearch time_buckets output and get Active, Churned, and New store counts.',
+    icon: Store,
+    color: '#2563eb',
+    bgColor: '#eff6ff',
+    path: '/finding-store-count',
     ready: true,
   },
   {

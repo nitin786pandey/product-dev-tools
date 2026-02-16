@@ -7,6 +7,7 @@ const toolNames = {
   '/prompts-parser': 'Prompts Parser',
   '/writing-overseer': 'Writing Overseer',
   '/prompt-configurator': 'Prompt Configurator',
+  '/finding-store-count': 'Finding Store Count',
 }
 
 export default function Layout({ children }) {

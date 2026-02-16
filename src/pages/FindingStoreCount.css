@@ -1,0 +1,290 @@
+/* ===== Finding Store Count – data/metrics focus ===== */
+.store-count-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.store-count-icon {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+/* Reuse parser layout tokens */
+.store-count-page .input-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.store-count-page .input-section-collapsed .raw-input {
+  min-height: 80px;
+}
+
+.store-count-page .section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.store-count-page .section-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.store-count-page .section-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+
+.store-count-page .section-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.store-count-page .textarea-wrapper {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.store-count-page .raw-input {
+  width: 100%;
+  min-height: 240px;
+  padding: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--bg);
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+.store-count-page .raw-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.store-count-page .raw-input::placeholder {
+  color: var(--text-muted);
+}
+
+.store-count-page .textarea-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.store-count-page .char-count {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.store-count-page .action-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.store-count-page .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  transition: all var(--transition);
+}
+
+.store-count-page .btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.store-count-page .btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: var(--shadow-md);
+}
+
+.store-count-page .btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.store-count-page .btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.store-count-page .btn-ghost:hover:not(:disabled) {
+  background: var(--bg);
+  border-color: var(--text-muted);
+}
+
+.store-count-page .btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== Results ===== */
+.store-count-results {
+  animation: storeCountFadeIn 0.4s ease;
+}
+
+@keyframes storeCountFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.store-count-error {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.store-count-error p {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #dc2626;
+}
+
+.store-count-error svg {
+  color: #dc2626;
+  opacity: 0.8;
+}
+
+/* Metric cards – clear hierarchy, one accent per type */
+.store-count-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.store-count-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.store-count-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.store-count-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-count-card-active .store-count-card-icon {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.store-count-card-churned .store-count-card-icon {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.store-count-card-new .store-count-card-icon {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.store-count-card-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.store-count-card-value {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.store-count-card-active .store-count-card-value { color: #2563eb; }
+.store-count-card-churned .store-count-card-value { color: #dc2626; }
+.store-count-card-new .store-count-card-value { color: #16a34a; }
+
+/* Formatted output line + copy */
+.store-count-output-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.store-count-output-text {
+  flex: 1;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 14px;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.store-count-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.store-count-copy-btn:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  background: #eff6ff;
+}
+
+@media (max-width: 640px) {
+  .store-count-cards {
+    grid-template-columns: 1fr;
+  }
+}
