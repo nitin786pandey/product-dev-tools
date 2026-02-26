@@ -99,6 +99,9 @@ export default function ExcelToMarkdown() {
 
   const hasWorkbook = !!workbook
   const sheetNames = workbook?.SheetNames || []
+  const previewRows = selectedSheet && workbook
+    ? sheetTo2DArray(workbook.Sheets[selectedSheet]).slice(0, 15)
+    : []
 
   return (
     <div className="excel-md-page">
@@ -200,6 +203,25 @@ export default function ExcelToMarkdown() {
                 Reset
               </button>
             </div>
+
+            {previewRows.length > 0 && (
+              <div className="sheet-preview">
+                <span className="sheet-preview-label">Preview</span>
+                <div className="sheet-preview-table-wrap">
+                  <table className="sheet-preview-table">
+                    <tbody>
+                      {previewRows.map((row, i) => (
+                        <tr key={i}>
+                          {row.map((cell, j) => (
+                            <td key={j}>{String(cell ?? '')}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

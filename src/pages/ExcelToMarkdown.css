@@ -169,6 +169,58 @@
   cursor: pointer;
 }
 
+/* Sheet preview */
+.sheet-preview {
+  margin-top: 20px;
+}
+
+.sheet-preview-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.sheet-preview-table-wrap {
+  overflow-x: auto;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+}
+
+.sheet-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.sheet-preview-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.sheet-preview-table tr:first-child td {
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.sheet-preview-table tr:last-child td {
+  border-bottom: none;
+}
+
+.sheet-preview-table td:last-child {
+  border-right: none;
+}
+
 /* Output section */
 .excel-md-output {
   animation: fadeInUp 0.4s ease;
