@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FileText, MessageSquare, PenLine, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal, Store } from 'lucide-react'
+import { FileText, MessageSquare, PenLine, Database, BarChart3, Settings, Code, Search, MoreHorizontal, SlidersHorizontal, Store, Table2 } from 'lucide-react'
 import './Home.css'
 
 const tools = [
@@ -31,6 +31,16 @@ const tools = [
     color: '#2563eb',
     bgColor: '#eff6ff',
     path: '/finding-store-count',
+    ready: true,
+  },
+  {
+    id: 'excel-to-markdown',
+    name: 'Excel to Markdown',
+    description: 'Convert Google Sheets or Excel files to markdown tables. Paste a GSheet link or upload a file, select a sheet, and get markdown.',
+    icon: Table2,
+    color: '#d97706',
+    bgColor: '#fef3c7',
+    path: '/excel-to-markdown',
     ready: true,
   },
   {

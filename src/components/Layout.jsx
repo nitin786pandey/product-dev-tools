@@ -8,6 +8,7 @@ const toolNames = {
   '/writing-overseer': 'Writing Overseer',
   '/prompt-configurator': 'Prompt Configurator',
   '/finding-store-count': 'Finding Store Count',
+  '/excel-to-markdown': 'Excel to Markdown',
 }
 
 export default function Layout({ children }) {
